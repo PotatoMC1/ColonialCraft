@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Colonist Craft - Live Chat</title>
+  <style>
+    body {
+      background-color: #111;
+      color: #fff;
+      font-family: monospace;
+      padding: 2rem;
+    }
+    .chat-box {
+      background: rgba(255,255,255,0.05);
+      padding: 1rem;
+      border-radius: 10px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    .chat-line {
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>🗨️ Live Minecraft Chat</h1>
+  <div class="chat-box" id="chatBox">
+    <div class="chat-line">Connecting to chat...</div>
+  </div>
+
+  <script>
+    // Replace this with actual chat fetch logic
+    async function loadChat() {
+      try {
+        const res = await fetch("https://your-backend.com/chat.json"); // ← Replace with real endpoint
+        const chat = await res.json();
+        const chatBox = document.getElementById("chatBox");
+        chatBox.innerHTML = "";
+        chat.forEach(line => {
+          const div = document.createElement("div");
+          div.className = "chat-line";
+          div.textContent = line;
+          chatBox.appendChild(div);
+        });
+      } catch (err) {
+        document.getElementById("chatBox").innerHTML = `<div class="chat-line">⚠️ Failed to load chat</div>`;
+      }
+    }
+
+    setInterval(loadChat, 3000); // Refresh every 3 seconds
+    loadChat();
+  </script>
+</body>
+</html>
