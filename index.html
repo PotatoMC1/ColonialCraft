@@ -12,8 +12,6 @@
       --card-bg: rgba(0, 0, 0, 0.7);
       --link-color: #90cdf4;
       --navbar-bg: rgba(0,0,0,0.8);
-      --settings-bg: rgba(180, 165, 140, 0.95);
-      --settings-border: #a38c6c;
     }
     body.light-mode {
       --bg-color: #fff;
@@ -21,8 +19,6 @@
       --card-bg: rgba(255, 255, 255, 0.8);
       --link-color: #0077cc;
       --navbar-bg: rgba(255,255,255,0.9);
-      --settings-bg: rgba(245, 235, 210, 0.95);
-      --settings-border: #d0bfa1;
     }
     html, body {
       margin: 0;
@@ -44,9 +40,9 @@
       width: 100%;
       background: var(--navbar-bg);
       display: flex;
-      justify-content: flex-end;
+      justify-content: center;
       align-items: center;
-      padding: 1rem 2rem;
+      padding: 1rem 0;
       z-index: 1000;
       box-shadow: 0 2px 5px rgba(0,0,0,0.5);
     }
@@ -55,11 +51,18 @@
       text-decoration: none;
       color: var(--text-color);
       font-weight: bold;
-      font-family: 'Garamond', serif;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
       transition: color 0.3s;
     }
     nav a:hover {
+      color: var(--link-color);
+    }
+    nav .settings {
+      cursor: pointer;
+      font-size: 1.2rem;
+      margin-left: 1rem;
+      transition: color 0.3s;
+    }
+    nav .settings:hover {
       color: var(--link-color);
     }
 
@@ -81,37 +84,25 @@
       text-align: center;
       position: relative;
     }
-
-    /* Discord icon */
     .discord {
       position: absolute;
       top: 1rem;
+      right: 3rem;
       font-size: 1.5rem;
       text-decoration: none;
       color: var(--text-color);
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
-      right: 3rem;
       transition: color 0.3s;
     }
     .discord:hover { color: #7289da; }
 
-    /* Settings button moved to navbar */
-    .settings {
-      font-size: 1.5rem;
-      cursor: pointer;
-      margin-left: 1rem;
-    }
-
     h1 {
       font-size: 3rem;
       text-align: center;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
     }
     .subtitle {
       font-size: 1.2rem;
       margin-bottom: 2rem;
       text-align: center;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
     }
     .emoji {
       font-size: 1.5rem;
@@ -123,7 +114,9 @@
       cursor: pointer;
       transition: transform 0.6s ease;
     }
-    .refresh.spin { transform: rotate(360deg); }
+    .refresh.spin {
+      transform: rotate(360deg);
+    }
     .player-list {
       max-height: 100px;
       overflow: hidden;
@@ -159,21 +152,18 @@
       color: var(--text-color);
     }
 
-    /* Colonial settings menu */
+    /* Settings Dropdown */
     .settings-menu {
       position: absolute;
-      top: 3.5rem;
-      right: 2rem;
-      background: var(--settings-bg);
-      border: 2px solid var(--settings-border);
+      top: 2.5rem;
+      right: 1rem;
+      background: var(--card-bg);
+      padding: 1rem;
       border-radius: 8px;
       display: none;
       flex-direction: column;
-      padding: 1rem;
       min-width: 200px;
-      z-index: 1000;
-      font-family: 'Garamond', serif;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+      z-index: 100;
     }
     .settings-menu select, .settings-menu label {
       margin-bottom: 0.7rem;
@@ -189,7 +179,7 @@
     <a href="#join">Home</a>
     <a href="#serverStatus">Server Status</a>
     <a href="http://209.192.185.135:25572/" target="_blank">Dynmap</a>
-    <div class="settings" onclick="toggleSettings()">⚙️</div>
+    <span class="settings" onclick="toggleSettings()" title="Settings">⚙️</span>
   </nav>
 
   <div class="overlay">
@@ -259,7 +249,9 @@
     function toggleSettings() {
       settingsMenu.style.display = settingsMenu.style.display === "flex" ? "none" : "flex";
     }
-    function toggleTheme() { document.body.classList.toggle("light-mode"); }
+    function toggleTheme() {
+      document.body.classList.toggle("light-mode");
+    }
 
     function renderPlayerList() {
       playerListContainer.innerHTML = "";
