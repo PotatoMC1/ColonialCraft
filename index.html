@@ -7,35 +7,36 @@
   <link rel="icon" href="icon.png" />
   <style>
     :root {
-      --bg-color: #f5f1e0;
-      --text-color: #3b2f1a;
-      --card-bg: rgba(245, 241, 224, 0.85);
-      --link-color: #8b5e3c;
-      --navbar-bg: rgba(222, 210, 180, 0.95);
-      --hover-color: #a06e3b;
-      --shadow-color: rgba(0,0,0,0.3);
+      --bg-color: #000;
+      --text-color: #fff;
+      --card-bg: rgba(0, 0, 0, 0.7);
+      --link-color: #90cdf4;
+      --navbar-bg: rgba(0,0,0,0.8);
+      --settings-bg: rgba(180, 165, 140, 0.95);
+      --settings-border: #a38c6c;
     }
     body.light-mode {
-      --bg-color: #f5f1e0;
-      --text-color: #3b2f1a;
-      --card-bg: rgba(245, 241, 224, 0.85);
-      --link-color: #8b5e3c;
-      --navbar-bg: rgba(222, 210, 180, 0.95);
-      --hover-color: #a06e3b;
+      --bg-color: #fff;
+      --text-color: #000;
+      --card-bg: rgba(255, 255, 255, 0.8);
+      --link-color: #0077cc;
+      --navbar-bg: rgba(255,255,255,0.9);
+      --settings-bg: rgba(245, 235, 210, 0.95);
+      --settings-border: #d0bfa1;
     }
-
     html, body {
       margin: 0;
       padding: 0;
-      font-family: 'Garamond', 'Times New Roman', serif;
-      color: var(--text-color);
-      scroll-behavior: smooth;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: url('banner (2).png') center center fixed;
       background-size: cover;
       background-attachment: fixed;
+      scroll-behavior: smooth;
+      color: var(--text-color);
+      background-color: var(--bg-color);
     }
 
-    /* Navbar */
+    /* Navbar styles */
     nav {
       position: fixed;
       top: 0;
@@ -43,32 +44,25 @@
       width: 100%;
       background: var(--navbar-bg);
       display: flex;
-      justify-content: center;
-      padding: 1rem 0;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 1rem 2rem;
       z-index: 1000;
-      box-shadow: 0 2px 5px var(--shadow-color);
-      font-weight: bold;
-      letter-spacing: 1px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.5);
     }
     nav a {
-      margin: 0 1.2rem;
+      margin: 0 1rem;
       text-decoration: none;
       color: var(--text-color);
-      transition: color 0.3s;
+      font-weight: bold;
       font-family: 'Garamond', serif;
-      display: flex;
-      align-items: center;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+      transition: color 0.3s;
     }
     nav a:hover {
-      color: var(--hover-color);
-    }
-    nav a img {
-      width: 20px;
-      height: 20px;
-      margin-right: 0.3rem;
+      color: var(--link-color);
     }
 
-    /* Overlay */
     .overlay {
       background-color: rgba(0, 0, 0, 0.6);
       min-height: 100vh;
@@ -77,78 +71,59 @@
       flex-direction: column;
       align-items: center;
     }
-
-    /* Cards */
     .card {
       background: var(--card-bg);
-      border-radius: 12px;
-      padding: 1.8rem;
+      border-radius: 10px;
+      padding: 1.5rem;
       margin: 1rem;
       max-width: 600px;
       width: 90%;
       text-align: center;
       position: relative;
-      border: 2px solid #b59b6d;
-      box-shadow: 4px 4px 12px var(--shadow-color);
     }
 
-    /* Settings menu - Colonial style */
-    .settings-menu {
+    /* Discord icon */
+    .discord {
       position: absolute;
-      top: 2.5rem;
-      right: 1rem;
-      background: linear-gradient(to bottom, #fdf5e6, #f0e3c2);
-      padding: 1rem;
-      border-radius: 8px;
-      display: none;
-      flex-direction: column;
-      min-width: 220px;
-      z-index: 100;
-      border: 2px solid #b59b6d;
-      box-shadow: 4px 4px 10px var(--shadow-color);
-      font-family: 'Garamond', 'Times New Roman', serif;
-      color: #5a3e1b;
-    }
-    .settings-menu label {
-      cursor: pointer;
-      margin-bottom: 0.7rem;
-      display: flex;
-      justify-content: space-between;
-    }
-    .settings-menu input[type="checkbox"] {
-      transform: scale(1.2);
-      margin-left: 0.5rem;
-    }
-    .settings-menu select {
-      background: #fdf5e6;
-      border: 1px solid #b59b6d;
-      padding: 0.3rem;
-      font-family: 'Garamond', serif;
-      color: #5a3e1b;
-    }
-
-    /* Discord & Settings icons */
-    .discord, .settings {
+      top: 1rem;
       font-size: 1.5rem;
-      transition: color 0.3s;
+      text-decoration: none;
       color: var(--text-color);
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+      right: 3rem;
+      transition: color 0.3s;
     }
     .discord:hover { color: #7289da; }
-    .settings:hover { color: #a06e3b; }
 
-    /* Headings */
+    /* Settings button moved to navbar */
+    .settings {
+      font-size: 1.5rem;
+      cursor: pointer;
+      margin-left: 1rem;
+    }
+
     h1 {
       font-size: 3rem;
       text-align: center;
-      text-shadow: 2px 2px #b59b6d;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
     }
     .subtitle {
       font-size: 1.2rem;
       margin-bottom: 2rem;
       text-align: center;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
     }
-
-    /* Player list */
+    .emoji {
+      font-size: 1.5rem;
+      margin-right: 0.5rem;
+    }
+    .refresh {
+      display: inline-block;
+      margin-left: 0.5rem;
+      cursor: pointer;
+      transition: transform 0.6s ease;
+    }
+    .refresh.spin { transform: rotate(360deg); }
     .player-list {
       max-height: 100px;
       overflow: hidden;
@@ -158,6 +133,7 @@
       display: flex;
       align-items: center;
       margin: 0.2rem 0;
+      transition: background 0.3s;
       color: var(--text-color);
     }
     .player-entry img {
@@ -165,11 +141,9 @@
       height: 20px;
       margin-right: 0.5rem;
     }
-
-    /* Misc */
     .view-more {
       margin-top: 0.5rem;
-      color: #5a3e1b;
+      color: #ccc;
       cursor: pointer;
       font-size: 0.9rem;
       user-select: none;
@@ -184,27 +158,42 @@
       margin-top: 0.5rem;
       color: var(--text-color);
     }
-    .refresh {
-      display: inline-block;
-      margin-left: 0.5rem;
-      cursor: pointer;
-      transition: transform 0.6s ease;
+
+    /* Colonial settings menu */
+    .settings-menu {
+      position: absolute;
+      top: 3.5rem;
+      right: 2rem;
+      background: var(--settings-bg);
+      border: 2px solid var(--settings-border);
+      border-radius: 8px;
+      display: none;
+      flex-direction: column;
+      padding: 1rem;
+      min-width: 200px;
+      z-index: 1000;
+      font-family: 'Garamond', serif;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.5);
     }
-    .refresh.spin { transform: rotate(360deg); }
+    .settings-menu select, .settings-menu label {
+      margin-bottom: 0.7rem;
+    }
+    .settings-menu label {
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
   <!-- Navbar -->
   <nav>
-    <a href="#join"><img src="icons/house.png" alt="Home Icon">Home</a>
-    <a href="#serverStatus"><img src="icons/server.png" alt="Server Icon">Server Status</a>
-    <a href="http://209.192.185.135:25572/" target="_blank"><img src="icons/map.png" alt="Dynmap Icon">Dynmap</a>
-    <a class="settings" onclick="toggleSettings()">⚙️</a>
+    <a href="#join">Home</a>
+    <a href="#serverStatus">Server Status</a>
+    <a href="http://209.192.185.135:25572/" target="_blank">Dynmap</a>
+    <div class="settings" onclick="toggleSettings()">⚙️</div>
   </nav>
 
   <div class="overlay">
     <a class="discord" href="https://discord.gg/DJPG7rnckN" title="Join our Discord!" target="_blank">💬</a>
-
     <div class="settings-menu" id="settingsMenu">
       <label>
         <input type="checkbox" id="themeToggle" onchange="toggleTheme()" />
@@ -270,9 +259,7 @@
     function toggleSettings() {
       settingsMenu.style.display = settingsMenu.style.display === "flex" ? "none" : "flex";
     }
-    function toggleTheme() {
-      document.body.classList.toggle("light-mode");
-    }
+    function toggleTheme() { document.body.classList.toggle("light-mode"); }
 
     function renderPlayerList() {
       playerListContainer.innerHTML = "";
