@@ -11,12 +11,14 @@
       --text-color: #fff;
       --card-bg: rgba(0, 0, 0, 0.7);
       --link-color: #90cdf4;
+      --navbar-bg: rgba(0,0,0,0.8);
     }
     body.light-mode {
       --bg-color: #fff;
       --text-color: #000;
       --card-bg: rgba(255, 255, 255, 0.8);
       --link-color: #0077cc;
+      --navbar-bg: rgba(255,255,255,0.9);
     }
     html, body {
       margin: 0;
@@ -30,31 +32,34 @@
       background-color: var(--bg-color);
     }
 
-    /* NAVIGATION BAR */
-    .navbar {
+    /* Navbar styles */
+    nav {
       position: fixed;
       top: 0;
+      left: 0;
       width: 100%;
-      z-index: 200;
-      background: rgba(0,0,0,0.8);
-      padding: 10px 0;
-      text-align: center;
+      background: var(--navbar-bg);
+      display: flex;
+      justify-content: center;
+      padding: 1rem 0;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.5);
     }
-    .navbar a {
-      color: var(--text-color);
+    nav a {
+      margin: 0 1rem;
       text-decoration: none;
-      margin: 0 15px;
+      color: var(--text-color);
       font-weight: bold;
       transition: color 0.3s;
     }
-    .navbar a:hover {
-      color: #90cdf4;
+    nav a:hover {
+      color: var(--link-color);
     }
 
     .overlay {
       background-color: rgba(0, 0, 0, 0.6);
       min-height: 100vh;
-      padding: 120px 2rem 2rem; /* top padding accounts for navbar */
+      padding: 6rem 2rem 2rem 2rem;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -81,43 +86,100 @@
     .settings { right: 1rem; cursor: pointer; }
     .discord:hover { color: #7289da; }
     .settings:hover { color: #aaa; }
-    h1 { font-size: 3rem; text-align: center; }
-    .subtitle { font-size: 1.2rem; margin-bottom: 2rem; text-align: center; }
-    .emoji { font-size: 1.5rem; margin-right: 0.5rem; }
-    .refresh { display: inline-block; margin-left: 0.5rem; cursor: pointer; transition: transform 0.6s ease; }
-    .refresh.spin { transform: rotate(360deg); }
-    .player-list { max-height: 100px; overflow: hidden; transition: max-height 0.3s ease-in-out; }
-    .player-entry { display: flex; align-items: center; margin: 0.2rem 0; transition: background 0.3s; color: var(--text-color); }
-    .player-entry img { width: 20px; height: 20px; margin-right: 0.5rem; }
-    .view-more { margin-top: 0.5rem; color: #ccc; cursor: pointer; font-size: 0.9rem; user-select: none; }
-    .how-to-join { margin-top: 4rem; text-align: center; padding-bottom: 4rem; }
-    .autorefresh { font-size: 0.9rem; margin-top: 0.5rem; color: var(--text-color); }
 
+    h1 {
+      font-size: 3rem;
+      text-align: center;
+    }
+    .subtitle {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    .emoji {
+      font-size: 1.5rem;
+      margin-right: 0.5rem;
+    }
+    .refresh {
+      display: inline-block;
+      margin-left: 0.5rem;
+      cursor: pointer;
+      transition: transform 0.6s ease;
+    }
+    .refresh.spin {
+      transform: rotate(360deg);
+    }
+    .player-list {
+      max-height: 100px;
+      overflow: hidden;
+      transition: max-height 0.3s ease-in-out;
+    }
+    .player-entry {
+      display: flex;
+      align-items: center;
+      margin: 0.2rem 0;
+      transition: background 0.3s;
+      color: var(--text-color);
+    }
+    .player-entry img {
+      width: 20px;
+      height: 20px;
+      margin-right: 0.5rem;
+    }
+    .view-more {
+      margin-top: 0.5rem;
+      color: #ccc;
+      cursor: pointer;
+      font-size: 0.9rem;
+      user-select: none;
+    }
+    .how-to-join {
+      margin-top: 4rem;
+      text-align: center;
+      padding-bottom: 4rem;
+    }
+    .autorefresh {
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+      color: var(--text-color);
+    }
     /* Settings Dropdown */
-    .settings-menu { position: absolute; top: 2.5rem; right: 1rem; background: var(--card-bg); padding: 1rem; border-radius: 8px; display: none; flex-direction: column; min-width: 200px; z-index: 100; }
-    .settings-menu select, .settings-menu label { margin-bottom: 0.7rem; }
-    .settings-menu label { cursor: pointer; }
-
-    /* Dynmap Section */
-    .dynmap-container { width: 90%; max-width: 1200px; height: 700px; margin: 2rem auto; border-radius: 10px; overflow: hidden; border: 2px solid #90cdf4; }
-    .dynmap-container iframe { width: 100%; height: 100%; border: none; }
+    .settings-menu {
+      position: absolute;
+      top: 2.5rem;
+      right: 1rem;
+      background: var(--card-bg);
+      padding: 1rem;
+      border-radius: 8px;
+      display: none;
+      flex-direction: column;
+      min-width: 200px;
+      z-index: 100;
+    }
+    .settings-menu select, .settings-menu label {
+      margin-bottom: 0.7rem;
+    }
+    .settings-menu label {
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
-  <!-- NAVBAR -->
-  <div class="navbar">
-    <a href="#home">Home</a>
+  <!-- Navbar -->
+  <nav>
+    <a href="#join">Home</a>
     <a href="#serverStatus">Server Status</a>
-    <a href="#join">How to Join</a>
-    <a href="#dynmap">Dynmap</a>
-    <a href="https://discord.gg/DJPG7rnckN" target="_blank">Discord</a>
-  </div>
+    <a href="http://209.192.185.135:25572/" target="_blank">Dynmap</a>
+  </nav>
 
-  <div class="overlay" id="home">
+  <div class="overlay">
     <a class="discord" href="https://discord.gg/DJPG7rnckN" title="Join our Discord!" target="_blank">💬</a>
     <div class="settings" onclick="toggleSettings()">⚙️</div>
     <div class="settings-menu" id="settingsMenu">
-      <label><input type="checkbox" id="themeToggle" onchange="toggleTheme()" /> Toggle Light/Dark Mode</label>
+      <label>
+        <input type="checkbox" id="themeToggle" onchange="toggleTheme()" />
+        Toggle Light/Dark Mode
+      </label>
       <label for="languageSelect">Choose Language (Coming soon)</label>
       <select id="languageSelect">
         <option>English</option>
@@ -131,7 +193,10 @@
     <div class="subtitle">Explore, survive, and build together. Check who’s online below.</div>
 
     <div class="card" id="serverStatus">
-      <div><span class="emoji">🌐</span><strong>Server Status</strong> <span class="refresh" id="refreshIcon" onclick="checkServerStatus()">&#x21bb;</span></div>
+      <div>
+        <span class="emoji">🌐</span><strong>Server Status</strong>
+        <span class="refresh" id="refreshIcon" onclick="checkServerStatus()">&#x21bb;</span>
+      </div>
       <p id="statusText">Checking server status...</p>
       <div id="playerList" class="player-list"></div>
       <div class="view-more" id="viewMore" onclick="togglePlayerList()" style="display: none;"></div>
@@ -140,22 +205,21 @@
 
     <div class="card">
       <div><span class="emoji">📖</span><strong>About Colonial' Craft</strong></div>
-      <p>🌍 Welcome to Colonial' Craft! Colonial Craft is a Minecraft Earth SMP where players settle across a massive Earth map, forming teams, factions, and nations to expand their influence. Build thriving cities, forge alliances, trade resources, and wage wars to shape the world in your vision. Whether you dream of leading a powerful empire or joining a small community of explorers, the story of Colonial Craft is written by its players.</p>
+      <p>
+       🌍 Welcome to Colonial' Craft!<br>
+       Colonial Craft is a Minecraft Earth SMP where players settle across a massive Earth map, forming teams, factions, and nations to expand their influence. Build thriving cities, forge alliances, trade resources, and wage wars to shape the world in your vision. Whether you dream of leading a powerful empire or joining a small community of explorers, the story of Colonial Craft is written by its players.
+      </p>
     </div>
 
     <div class="card how-to-join" id="join">
       <div><span class="emoji">🛠️</span><strong>How to Join Colonial' Craft</strong></div>
-      <p>1. Launch Minecraft (Java Edition recommended).<br />
-         2. Go to Multiplayer and click Add Server.<br />
-         3. Enter Server IP: <strong>colonialcraft.sherman.gg</strong><br />
-         4. Join and start exploring!<br /><br />
-         💡<a href="https://discord.gg/DJPG7rnckN" target="_blank" style="color: var(--link-color);">Join Discord here</a>
+      <p>
+        1. Launch Minecraft (Java Edition recommended).<br />
+        2. Go to Multiplayer and click Add Server.<br />
+        3. Enter Server IP: <strong>colonialcraft.sherman.gg</strong><br />
+        4. Join and start exploring!<br /><br />
+        💡<a href="https://discord.gg/DJPG7rnckN" target="_blank" style="color: var(--link-color);">Join Discord here</a>
       </p>
-    </div>
-
-    <!-- Dynmap Section -->
-    <div class="dynmap-container" id="dynmap">
-      <iframe src="http://209.192.185.135:25572/" title="Dynmap"></iframe>
     </div>
   </div>
 
@@ -173,8 +237,12 @@
     let expanded = false;
     let countdown = 30;
 
-    function toggleSettings() { settingsMenu.style.display = settingsMenu.style.display === "flex" ? "none" : "flex"; }
-    function toggleTheme() { document.body.classList.toggle("light-mode"); }
+    function toggleSettings() {
+      settingsMenu.style.display = settingsMenu.style.display === "flex" ? "none" : "flex";
+    }
+    function toggleTheme() {
+      document.body.classList.toggle("light-mode");
+    }
 
     function renderPlayerList() {
       playerListContainer.innerHTML = "";
