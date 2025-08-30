@@ -176,9 +176,9 @@
 <body>
   <!-- Navbar -->
   <nav>
-    <a href="#join">Home</a>
-    <a href="#serverStatus">Server Status</a>
-    <a href="http://209.192.185.135:25572/" target="_blank">Dynmap</a>
+    <a href="#join" id="navHome">Home</a>
+    <a href="#serverStatus" id="navStatus">Server Status</a>
+    <a href="http://209.192.185.135:25572/" target="_blank" id="navDynmap">Dynmap</a>
     <span class="settings" onclick="toggleSettings()" title="Settings">⚙️</span>
   </nav>
 
@@ -189,21 +189,21 @@
         <input type="checkbox" id="themeToggle" onchange="toggleTheme()" />
         Toggle Light/Dark Mode
       </label>
-      <label for="languageSelect">Choose Language (Coming soon)</label>
-      <select id="languageSelect">
-        <option>English</option>
-        <option>German</option>
-        <option>French</option>
-        <option>Spanish</option>
+      <label for="languageSelect">Choose Language</label>
+      <select id="languageSelect" onchange="updateLanguage()">
+        <option value="en">English</option>
+        <option value="de">German</option>
+        <option value="fr">French</option>
+        <option value="es">Spanish</option>
       </select>
     </div>
 
-    <h1>Welcome to the Colonial' Craft official Website</h1>
-    <div class="subtitle">Explore, survive, and build together. Check who’s online below.</div>
+    <h1 id="mainTitle">Welcome to the Colonial' Craft official Website</h1>
+    <div class="subtitle" id="subtitle">Explore, survive, and build together. Check who’s online below.</div>
 
     <div class="card" id="serverStatus">
       <div>
-        <span class="emoji">🌐</span><strong>Server Status</strong>
+        <span class="emoji">🌐</span><strong id="statusTitle">Server Status</strong>
         <span class="refresh" id="refreshIcon" onclick="checkServerStatus()">&#x21bb;</span>
       </div>
       <p id="statusText">Checking server status...</p>
@@ -213,26 +213,93 @@
     </div>
 
     <div class="card">
-      <div><span class="emoji">📖</span><strong>About Colonial' Craft</strong></div>
-      <p>
+      <div><span class="emoji">📖</span><strong id="aboutTitle">About Colonial' Craft</strong></div>
+      <p id="aboutText">
        🌍 Welcome to Colonial' Craft!<br>
        Colonial Craft is a Minecraft Earth SMP where players settle across a massive Earth map, forming teams, factions, and nations to expand their influence. Build thriving cities, forge alliances, trade resources, and wage wars to shape the world in your vision. Whether you dream of leading a powerful empire or joining a small community of explorers, the story of Colonial Craft is written by its players.
       </p>
     </div>
 
     <div class="card how-to-join" id="join">
-      <div><span class="emoji">🛠️</span><strong>How to Join Colonial' Craft</strong></div>
-      <p>
+      <div><span class="emoji">🛠️</span><strong id="joinTitle">How to Join Colonial' Craft</strong></div>
+      <p id="joinText">
         1. Launch Minecraft (Java Edition recommended).<br />
         2. Go to Multiplayer and click Add Server.<br />
         3. Enter Server IP: <strong>colonialcraft.sherman.gg</strong><br />
         4. Join and start exploring!<br /><br />
-        💡<a href="https://discord.gg/DJPG7rnckN" target="_blank" style="color: var(--link-color);">Join Discord here</a>
+        💡<a href="https://discord.gg/DJPG7rnckN" target="_blank" style="color: var(--link-color);" id="discordLink">Join Discord here</a>
       </p>
     </div>
   </div>
 
   <script>
+    const translations = {
+      en: {
+        mainTitle: "Welcome to the Colonial' Craft official Website",
+        subtitle: "Explore, survive, and build together. Check who’s online below.",
+        statusTitle: "Server Status",
+        aboutTitle: "About Colonial' Craft",
+        aboutText: "🌍 Welcome to Colonial' Craft!<br>Colonial Craft is a Minecraft Earth SMP where players settle across a massive Earth map, forming teams, factions, and nations to expand their influence. Build thriving cities, forge alliances, trade resources, and wage wars to shape the world in your vision. Whether you dream of leading a powerful empire or joining a small community of explorers, the story of Colonial Craft is written by its players.",
+        joinTitle: "How to Join Colonial' Craft",
+        joinText: "1. Launch Minecraft (Java Edition recommended).<br>2. Go to Multiplayer and click Add Server.<br>3. Enter Server IP: <strong>colonialcraft.sherman.gg</strong><br>4. Join and start exploring!<br><br>💡<a href='https://discord.gg/DJPG7rnckN' target='_blank' style='color: var(--link-color);'>Join Discord here</a>",
+        navHome: "Home",
+        navStatus: "Server Status",
+        navDynmap: "Dynmap"
+      },
+      de: {
+        mainTitle: "Willkommen auf der offiziellen Colonial' Craft Website",
+        subtitle: "Erkunde, überlebe und baue gemeinsam. Sieh unten, wer online ist.",
+        statusTitle: "Serverstatus",
+        aboutTitle: "Über Colonial' Craft",
+        aboutText: "🌍 Willkommen bei Colonial' Craft!<br>Colonial Craft ist ein Minecraft Earth SMP, in dem Spieler sich auf einer riesigen Erdkarte niederlassen, Teams, Fraktionen und Nationen bilden, um ihren Einfluss auszubauen. Errichte blühende Städte, schmiede Allianzen, handle mit Ressourcen und führe Kriege, um die Welt nach deiner Vision zu gestalten. Ob du ein mächtiges Imperium führen oder einer kleinen Gemeinschaft von Entdeckern beitreten möchtest, die Geschichte von Colonial Craft wird von den Spielern geschrieben.",
+        joinTitle: "So trittst du Colonial' Craft bei",
+        joinText: "1. Starte Minecraft (Java Edition empfohlen).<br>2. Gehe zu Multiplayer und klicke auf Server hinzufügen.<br>3. Server-IP eingeben: <strong>colonialcraft.sherman.gg</strong><br>4. Trete bei und beginne zu erkunden!<br><br>💡<a href='https://discord.gg/DJPG7rnckN' target='_blank' style='color: var(--link-color);'>Tritt dem Discord bei</a>",
+        navHome: "Startseite",
+        navStatus: "Serverstatus",
+        navDynmap: "Dynmap"
+      },
+      fr: {
+        mainTitle: "Bienvenue sur le site officiel de Colonial' Craft",
+        subtitle: "Explorez, survivez et construisez ensemble. Voyez qui est en ligne ci-dessous.",
+        statusTitle: "Statut du serveur",
+        aboutTitle: "À propos de Colonial' Craft",
+        aboutText: "🌍 Bienvenue à Colonial' Craft !<br>Colonial Craft est un Minecraft Earth SMP où les joueurs s'installent sur une carte massive de la Terre, formant des équipes, factions et nations pour étendre leur influence. Construisez des villes prospères, forgez des alliances, échangez des ressources et faites la guerre pour façonner le monde selon votre vision. Que vous rêviez de diriger un empire puissant ou de rejoindre une petite communauté d'explorateurs, l'histoire de Colonial Craft est écrite par ses joueurs.",
+        joinTitle: "Comment rejoindre Colonial' Craft",
+        joinText: "1. Lancez Minecraft (édition Java recommandée).<br>2. Allez dans Multijoueur et cliquez sur Ajouter un serveur.<br>3. Entrez l'IP du serveur : <strong>colonialcraft.sherman.gg</strong><br>4. Rejoignez et commencez à explorer !<br><br>💡<a href='https://discord.gg/DJPG7rnckN' target='_blank' style='color: var(--link-color);'>Rejoindre le Discord</a>",
+        navHome: "Accueil",
+        navStatus: "Statut du serveur",
+        navDynmap: "Dynmap"
+      },
+      es: {
+        mainTitle: "Bienvenido al sitio oficial de Colonial' Craft",
+        subtitle: "Explora, sobrevive y construye juntos. Mira quién está en línea abajo.",
+        statusTitle: "Estado del servidor",
+        aboutTitle: "Acerca de Colonial' Craft",
+        aboutText: "🌍 ¡Bienvenido a Colonial' Craft!<br>Colonial Craft es un Minecraft Earth SMP donde los jugadores se asientan en un mapa masivo de la Tierra, formando equipos, facciones y naciones para expandir su influencia. Construye ciudades prósperas, forja alianzas, intercambia recursos y libra guerras para dar forma al mundo según tu visión. Ya sea que sueñes con liderar un poderoso imperio o unirte a una pequeña comunidad de exploradores, la historia de Colonial Craft es escrita por los jugadores.",
+        joinTitle: "Cómo unirse a Colonial' Craft",
+        joinText: "1. Inicia Minecraft (Edición Java recomendada).<br>2. Ve a Multijugador y haz clic en Añadir servidor.<br>3. Introduce la IP del servidor: <strong>colonialcraft.sherman.gg</strong><br>4. Únete y empieza a explorar.<br><br>💡<a href='https://discord.gg/DJPG7rnckN' target='_blank' style='color: var(--link-color);'>Unirse al Discord</a>",
+        navHome: "Inicio",
+        navStatus: "Estado del servidor",
+        navDynmap: "Dynmap"
+      }
+    };
+
+    function updateLanguage() {
+      const lang = document.getElementById("languageSelect").value;
+      const t = translations[lang];
+
+      document.getElementById("mainTitle").innerHTML = t.mainTitle;
+      document.getElementById("subtitle").innerHTML = t.subtitle;
+      document.getElementById("statusTitle").innerHTML = t.statusTitle;
+      document.getElementById("aboutTitle").innerHTML = t.aboutTitle;
+      document.getElementById("aboutText").innerHTML = t.aboutText;
+      document.getElementById("joinTitle").innerHTML = t.joinTitle;
+      document.getElementById("joinText").innerHTML = t.joinText;
+      document.getElementById("navHome").innerHTML = t.navHome;
+      document.getElementById("navStatus").innerHTML = t.navStatus;
+      document.getElementById("navDynmap").innerHTML = t.navDynmap;
+    }
+
     const serverIP = "colonialcraft.sherman.gg";
     const statusText = document.getElementById("statusText");
     const playerListContainer = document.getElementById("playerList");
